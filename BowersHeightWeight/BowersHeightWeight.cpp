@@ -5,7 +5,9 @@
 #include <iostream>
 #include <random>
 #include <string>
+#include <fstream>
 #include "stdafx.h"
+
 
 // class representing a random male human
 class Male {
@@ -60,29 +62,76 @@ public:
 };
 
 int main() {
-	Male men[1000];
-	Female women[1000];
+	std::fstream file;
+	file.open("data.txt", std::fstream::out);
+	if (file.is_open()) {
+		std::cout << "file opened successfully\n";
+	}
+
+	int const number = 2000;
+	Male men[number];
+	Female women[number];
 	// set up random number generators
 	std::random_device generator;
 	std::normal_distribution<double> distribution{ 0, 1 };
 
-	for (int i = 0; i < 1000; i++) {
+
+	for (int i = 0; i < number; i++) {
 		(men + i)->setHeight(distribution(generator) );
 		(men + i)->setWeight(distribution(generator));
 		(women + i)->setHeight(distribution(generator));
 		(women + i)->setWeight(distribution(generator));
 	}
 
-	std::cout << "Male\n";
-	std::cout << "Height\tWeight\n";
-	for (int i = 0; i < 1000; i++) {
-		std::cout << (men + i)->height << "\t" << (men + i)->weight << "\n";
+	for (int i = 0; i < number; i++) {
+		file << (men + i)->height << "," << (men + i)->weight << ",0\n";
 	}
-	std::cout << "Female\n";
-	std::cout << "Height\tWeight";
-	for (int i = 0; i < 1000; i++) {
-		std::cout << (women + i)->height << "\t" << (women + i)->weight << "\n";
+	
+	for (int i = 0; i < number; i++) {
+		file << (women + i)->height << "," << (women + i)->weight << ",1\n";
 	}
 
+	int pcorrect = 0;
+	int ncorrect = 0;
+	int d1pc = 0;
+	int d1nc = 0;
+	int incorrect = 0;
+
+	for (int i = 0; i < number; i++) {
+		if ((men + i)->height > 166) {
+			d1nc++;
+		}
+		if ((women + i)->height <= 166) {
+			d1pc++;
+		}
+		if (-12 * ((men + i)->height) - ((men + i)->weight) + 2126 <= 0) {
+			ncorrect++;
+		}
+		else { incorrect++; }
+		if (-12 * ((women + i)->height) - ((women + i)->weight) + 2126 > 0) {
+			pcorrect++;
+		}
+		else { incorrect++; }
+	}
+		
+	std::cout << "1Dtrue negative: " << (double)d1nc / number << "\n";
+	std::cout << "1Dfalse positive: " << (double)(number - d1nc) / number << "\n";
+	std::cout << "1Dtrue positive: " << (double)d1pc / number << "\n";
+	std::cout << "1Dfalse negative: " << (double)(number - d1pc) / number << "\n";
+	std::cout << "2Dtrue negative: " << (double)ncorrect / number << "\n";
+	std::cout << "2Dfalse positive: " << (double)(number - ncorrect) / number << "\n";
+	std::cout << "2Dtrue positive: " << (double)pcorrect / number << "\n";
+	std::cout << "2Dfalse negative: " << (double)(number - pcorrect) / number << "\n";
+	
+	double accuracy = ((double)pcorrect + (double)ncorrect)/ (2*number);
+	std::cout << "1Dunit: height - 166 <= 0\n";
+	std::cout << "1Daccurracy: " << ((double)(d1nc + d1pc) / (2 * number)) << "\n";
+	std::cout << "1Derror: " << 1 - ((double)(d1nc + d1pc) / (2 * number)) << "\n";
+	std::cout << "2Dunit: -12(height)-(weight)+2146 >= 0\n";
+	std::cout << "2Daccurracy: " << accuracy << "\n";
+	std::cout << "2Derror: " << 1 - accuracy << "\n";
+
+	file.close();
 	return 0;
 }
+
