@@ -81,18 +81,18 @@ class HammerschmidtHeightWeight
             women[i].setHeight(rando());
             women[i].setWeight(rando());
         }
-        Console.WriteLine("Male");
-        Console.WriteLine("Height \t Weight");
+        //Console.WriteLine("Male");
+        //Console.WriteLine("Height \t Weight");
         for (int i = 0; i < 1000; i++)
         {
             //std::cout << (men + i)->height << "\t" << (men + i)->weight << "\n";
-            Console.WriteLine(men[i].height + "\t" + men[i].weight);
+            Console.WriteLine(men[i].height + "," + men[i].weight + ",0");
         }
-        Console.WriteLine("Female");
-        Console.WriteLine("Height \t Weight");
+        //Console.WriteLine("Female");
+        //Console.WriteLine("Height \t Weight");
         for (int p = 0; p < 1000; p++)
         {
-            Console.WriteLine(women[p].height + "\t" + women[p].weight);
+            Console.WriteLine(women[p].height + "," + women[p].weight + ",0");
         }
 
     }
