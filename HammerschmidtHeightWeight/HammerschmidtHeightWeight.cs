@@ -1,54 +1,5 @@
 using System;
-// class representing a random male human
-public class Male {
-    // in cm
-	// these constants are derived from the WHO standard growth charts
-	const double aveHeight = 176.5;
-	const double sdHeight = 6.2;
-    // Block, J. P., Subramanian, S. V., Christakis, N. A., & O�Malley, 
-    // A. J. (2013). Population Trends and Variation in Body Mass Index 
-    // from 1971 to 2008 in the Framingham Heart Study Offspring Cohort. 
-    // PLoS ONE, 8(5), e63217. http://doi.org/10.1371/journal.pone.0063217
-    // kg/m/m
-    const double aveBMI = 29;
-	const double sdBMI = 4.73;
-
-	public double height;
-	public double weight;
-
-	public void setHeight(double hz) {
-		height = hz * sdHeight + aveHeight;
-	}
-	public void setWeight(double BMIz) {
-		weight = (BMIz * sdBMI + aveBMI) * height / 100 * height / 100;
-	}
-};
-public class Female {
-    
-	// in cm
-	// these constants are derived from the WHO standard growth charts
-	const double aveHeight = 163.3;
-	const double sdHeight = 5.5; 
-	// Block, J. P., Subramanian, S. V., Christakis, N. A., & O�Malley, 
-	// A. J. (2013). Population Trends and Variation in Body Mass Index 
-	// from 1971 to 2008 in the Framingham Heart Study Offspring Cohort. 
-	// PLoS ONE, 8(5), e63217. http://doi.org/10.1371/journal.pone.0063217
-	// kg/m/m
-	const double aveBMI = 27.7;
-	const double sdBMI = 6.15;
-
-	public double height;
-	public double weight;
-
-	public void setHeight(double hz) {
-		height = hz * sdHeight + aveHeight;
-	}
-	public void setWeight(double BMIz) {
-		weight = (BMIz * sdBMI + aveBMI) * height / 100 * height / 100;
-	} 
-
-};
-
+using System.IO;
 
 class HammerschmidtHeightWeight
 {
@@ -69,10 +20,11 @@ class HammerschmidtHeightWeight
         test.setHeight(100);
         Console.WriteLine(test.height);
         */
-        Male[] men = new Male[1000];
-        Female[] women = new Female[1000];
+        const int numPeople = 2000;
+        Male[] men = new Male[numPeople];
+        Female[] women = new Female[numPeople];
 
-        for (int i = 0; i < 1000; i++)
+        for (int i = 0; i < numPeople; i++)
         {
             men[i] = new Male();
             women[i] = new Female();
@@ -81,19 +33,49 @@ class HammerschmidtHeightWeight
             women[i].setHeight(rando());
             women[i].setWeight(rando());
         }
+
+        // calculate average and sd for people
+        double avgH, avgW, sdH, sdW;
+        double sumH = 0, sumW = 0;
+        for (int i = 0; i < numPeople; i++){
+            sumH += men[i].height + women[i].height;
+            sumW += men[i].weight + women[i].weight;
+        }
+        avgH = sumH/(2*numPeople);
+        avgW = sumW/(2*numPeople);
+
+        double sumOfSquaresH = 0, sumOfSquaresW = 0;
+        for (int i = 0; i < numPeople; i++){
+            sumOfSquaresH += Math.Pow((men[i].height - avgH), 2) + Math.Pow((women[i].height - avgH), 2);
+            sumOfSquaresW += Math.Pow((men[i].weight - avgW), 2) + Math.Pow((women[i].weight - avgW), 2);
+        }        
+        sdH = sumOfSquaresH/(2*numPeople);
+        sdW = sumOfSquaresW/(2*numPeople);
+
+        // normalize the height and weight of each person to (-1, 1)
+        for(int i = 0; i < numPeople; i++){
+            men[i].height = Normalizer.Normalize(men[i].height, avgH, sdH);
+            men[i].weight = Normalizer.Normalize(men[i].weight, avgW, sdW);
+            women[i].height = Normalizer.Normalize(women[i].height, avgH, sdH);
+            women[i].weight = Normalizer.Normalize(women[i].weight, avgW, sdW);
+        }
+
         //Console.WriteLine("Male");
         //Console.WriteLine("Height \t Weight");
-        for (int i = 0; i < 1000; i++)
+        StreamWriter output = new StreamWriter("data.txt");
+        for (int i = 0; i < numPeople; i++)
         {
             //std::cout << (men + i)->height << "\t" << (men + i)->weight << "\n";
-            Console.WriteLine(men[i].height + "," + men[i].weight + ",0");
+            output.WriteLine(men[i].height + "," + men[i].weight + ",0");
         }
         //Console.WriteLine("Female");
         //Console.WriteLine("Height \t Weight");
-        for (int p = 0; p < 1000; p++)
+        for (int p = 0; p < numPeople; p++)
         {
-            Console.WriteLine(women[p].height + "," + women[p].weight + ",0");
+            output.WriteLine(women[p].height + "," + women[p].weight + ",0");
         }
+
+        output.Close();
 
     }
 }
