@@ -20,7 +20,7 @@ class RandomTest{
     public static void Main(){
         int[] count = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
         
-        for(int i = 0; i < 5000; i++){
+        for(int i = 0; i < 3000; i++){
             count[(int) (5*rando() + 25)]++;
         }
 
