@@ -19,7 +19,7 @@ class RandomTest{
     }
 
     public static void Main(){
-        int count[11]
+        //int count[11];
         for(int i = 0; i < 100; i++){
             rando();
         }
