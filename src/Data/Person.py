@@ -31,6 +31,7 @@ class Person(object):
             self.weight = (zW * self.femaleSdBMI + self.femaleAveBMI) * self.height / 100 * self.height / 100
             self.sex = gender
 
+    # generates and returns and array of num people with 50:50 split m/w random normal distro of attributes
     @staticmethod
     def makepeople(num):
         people = []
