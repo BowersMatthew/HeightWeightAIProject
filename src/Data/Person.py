@@ -21,14 +21,14 @@ class Person(object):
     femaleAveBMI = 27.7
     femaleSdBMI = 6.15
 
-    def __init__(self, zH, zW, gender):
+    def __init__(self, zh, zw, gender):
         if gender == self.MALE:
-            self.height = (zH * self.maleSdHeight) + self.maleAveHeight
-            self.weight = (zW * self.maleSdBMI + self.maleAveBMI) * self.height / 100 * self.height / 100
+            self.height = (zh * self.maleSdHeight) + self.maleAveHeight
+            self.weight = (zw * self.maleSdBMI + self.maleAveBMI) * self.height / 100 * self.height / 100
             self.sex = gender
         else:
-            self.height = (zH * self.femaleSdHeight) + self.femaleAveHeight
-            self.weight = (zW * self.femaleSdBMI + self.femaleAveBMI) * self.height / 100 * self.height / 100
+            self.height = (zh * self.femaleSdHeight) + self.femaleAveHeight
+            self.weight = (zw * self.femaleSdBMI + self.femaleAveBMI) * self.height / 100 * self.height / 100
             self.sex = gender
 
     # generates and returns and array of num people with 50:50 split m/w random normal distro of attributes
