@@ -11,8 +11,10 @@ for i in range(0, 40):
     a = Person(numpy.random.normal(0, 1), numpy.random.normal(0, 1), s)
     people.append(a)
 
+f = open('data.txt', 'w')
 for p in people:
-    print(str(a.height))
-    print(str(a.weight))
+    f.write(str(p.height) + "," + str(p.weight) + "," + str(p.sex) + "\n")
+
+f.close()
 
 

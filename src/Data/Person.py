@@ -22,7 +22,9 @@ class Person(object):
         if gender == self.MALE:
             self.height = (zH * self.maleSdHeight) + self.maleAveHeight
             self.weight = (zW * self.maleSdBMI + self.maleAveBMI) * self.height / 100 * self.height / 100
+            self.sex = gender
         else:
             self.height = (zH * self.femaleSdHeight) + self.femaleAveHeight
             self.weight = (zW * self.femaleSdBMI + self.femaleAveBMI) * self.height / 100 * self.height / 100
+            self.sex = gender
 
