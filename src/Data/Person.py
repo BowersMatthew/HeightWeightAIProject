@@ -1,3 +1,6 @@
+import numpy.random
+
+
 class Person(object):
     # markers for gender
     MALE = 0
@@ -28,3 +31,15 @@ class Person(object):
             self.weight = (zW * self.femaleSdBMI + self.femaleAveBMI) * self.height / 100 * self.height / 100
             self.sex = gender
 
+    @staticmethod
+    def makepeople(num):
+        people = []
+
+        for i in range(0, num):
+            if i < num/2:
+                s = 0
+            else:
+                s = 1
+            people.append(Person(numpy.random.normal(0, 1), numpy.random.normal(0, 1), s))
+
+        return people
