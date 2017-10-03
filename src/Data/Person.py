@@ -3,7 +3,7 @@ import numpy.random
 
 class Person(object):
     # markers for gender
-    MALE = 0
+    MALE = -1
     FEMALE = 1
     # in cm
     # these constants are derived from the WHO standard growth charts
@@ -37,8 +37,8 @@ class Person(object):
         people = []
 
         for i in range(0, num):
-            if i < num/2:
-                s = 0
+            if i % 2 == 0:
+                s = -1
             else:
                 s = 1
             people.append(Person(numpy.random.normal(0, 1), numpy.random.normal(0, 1), s))
