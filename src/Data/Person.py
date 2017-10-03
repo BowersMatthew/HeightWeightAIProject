@@ -3,7 +3,7 @@ import numpy.random
 
 class Person(object):
     # markers for gender
-    MALE = -1
+    MALE = 0
     FEMALE = 1
     # in cm
     # these constants are derived from the WHO standard growth charts
