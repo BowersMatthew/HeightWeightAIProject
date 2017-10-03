@@ -3,8 +3,15 @@ import numpy.random
 
 class Person(object):
     # markers for gender
-    MALE = -1
+    MALE = 0
     FEMALE = 1
+
+    # max and min values for normalizing
+    maxw = 0
+    minw = 1000
+    maxh = 0
+    minh = 1000
+
     # in cm
     # these constants are derived from the WHO standard growth charts
     maleAveHeight = 176.5
@@ -22,14 +29,28 @@ class Person(object):
     femaleSdBMI = 6.15
 
     def __init__(self, zh, zw, gender):
+        self.pred = gender
         if gender == self.MALE:
-            self.height = (zh * self.maleSdHeight) + self.maleAveHeight
-            self.weight = (zw * self.maleSdBMI + self.maleAveBMI) * self.height / 100 * self.height / 100
+            self.height = (zh * Person.maleSdHeight) + Person.maleAveHeight
+            self.weight = (zw * Person.maleSdBMI + Person.maleAveBMI) * self.height / 100 * self.height / 100
             self.sex = gender
         else:
-            self.height = (zh * self.femaleSdHeight) + self.femaleAveHeight
-            self.weight = (zw * self.femaleSdBMI + self.femaleAveBMI) * self.height / 100 * self.height / 100
+            self.height = (zh * Person.femaleSdHeight) + Person.femaleAveHeight
+            self.weight = (zw * Person.femaleSdBMI + Person.femaleAveBMI) * self.height / 100 * self.height / 100
             self.sex = gender
+        Person.check(self)
+
+    # checks if the person just created has a min or max attribute'
+    @staticmethod
+    def check(p):
+        if p.weight > Person.maxw:
+            Person.maxw = p.weight
+        if p.weight < Person.minw:
+            Person.minw = p.weight
+        if p.height > Person.maxh:
+            Person.maxh = p.height
+        if p.height < Person.minh:
+            Person.minh = p.height
 
     # generates and returns and array of num people with 50:50 split m/w random normal distro of attributes
     @staticmethod
@@ -38,9 +59,9 @@ class Person(object):
 
         for i in range(0, num):
             if i % 2 == 0:
-                s = 0
+                s = Person.MALE
             else:
-                s = 1
+                s = Person.FEMALE
             people.append(Person(numpy.random.normal(0, 1), numpy.random.normal(0, 1), s))
 
         return people
