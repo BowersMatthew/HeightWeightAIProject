@@ -2,7 +2,7 @@ using System;
 2using GemBox.Spreadsheet;
 3using GemBox.Spreadsheet.Charts;
 4
-5class Sample
+5class graphTest
 6{
 7    [STAThread]
 8    static void Main(string[] args)
