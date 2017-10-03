@@ -1,11 +1,13 @@
 from src.Data.Person import Person
 from src.Data.normalize import normalize
+from src.graph.coolgraph import coolgraph
 
 people = normalize(Person.makepeople(4000))
 
 
 w = [1, 1, 1]
 a = .001
+'''
 
 # print(str(people[2].height))
 
@@ -26,5 +28,7 @@ for p in people:
     f.write(str(p.height) + "," + str(p.weight) + "," + str(p.sex) + "\n")
 
 f.close()
+'''
+coolgraph(people)
 
 
