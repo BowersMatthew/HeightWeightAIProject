@@ -2,7 +2,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 from src.Data.Person import Person
 
-def coolgraph(people):
+def coolgraph(people, weights):
+    '''
+    Weights is a 2d list of 3 seperate weights
+    Find out how to turn those into a line
+    and plot the lines
+    '''
     maleheight = []
     maleweight = []
     femaleheight = []
