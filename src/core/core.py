@@ -1,23 +1,23 @@
 from src.Data.Person import Person
 from src.Data.normalize import normalize
 
-people = normalize(Person.makepeople(400))
+people = normalize(Person.makepeople(4000))
 
 
-w = [1, 1, -1]
-k = .02
+w = [1, 1, 1]
+a = .001
 
-print(str(people[2].height))
+# print(str(people[2].height))
 
-for i in range(0, 400):
+for i in range(0, 4000):
     for p in people:
         if p.height * w[0] + p.weight * w[1] + w[2] < 0:
-            net = -1
+            net = 0
         else:
             net = 1
-        w[0] += k * p.height * (p.sex - net)
-        w[1] += k * p.weight * (p.sex - net)
-        w[2] += k * (net - p.sex)
+        w[0] += a * p.height * (p.sex - net)
+        w[1] += a * p.weight * (p.sex - net)
+        w[2] += a * (p.sex - net)
     print(str(w))
 
 

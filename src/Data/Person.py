@@ -38,7 +38,7 @@ class Person(object):
 
         for i in range(0, num):
             if i % 2 == 0:
-                s = -1
+                s = 0
             else:
                 s = 1
             people.append(Person(numpy.random.normal(0, 1), numpy.random.normal(0, 1), s))
