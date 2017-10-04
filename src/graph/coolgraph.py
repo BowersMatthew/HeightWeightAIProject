@@ -36,5 +36,27 @@ def coolgraph(people, weights):
         ax.scatter(x, y, alpha=0.8, c=color, edgecolors='none', s=10, label=group)
 
     plt.title('Graph of Data')
+    z = determineline(weights)
+    ax.plot(z[0],z[1], 'r--')
     plt.legend(loc=2)
     plt.show()
+def determineline(weights):
+    #solve for x and y intercept then use those to graph
+    #print(weights)
+    print("Break")
+    x = []
+    y = []
+    y.append(0)
+    yint = -weights[2]/weights[1]
+    y.append(yint)
+    xint = -weights[2]/weights[0]
+    x.append(xint)
+    x.append(0)
+    z = []
+    z.append(x)
+    z.append(y)
+    return z
+
+
+
+
