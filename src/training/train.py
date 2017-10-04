@@ -1,3 +1,5 @@
+from src.Data.Person import Person
+
 class Train:
 
     def __init__(self, people, params):
@@ -20,9 +22,9 @@ class Train:
         for i in range(0, params[2]):
             for p in people:
                 if p.height * w[0] + p.weight * w[1] + w[2] < 0:
-                    p.pred = 0
+                    p.pred = Person.MALE
                 else:
-                    p.pred = 1
+                    p.pred = Person.FEMALE
                 w[0] += params[1] * p.height * (p.sex - p.pred)
                 w[1] += params[1] * p.weight * (p.sex - p.pred)
                 w[2] += params[1] * (p.sex - p.pred)
@@ -47,9 +49,9 @@ class Train:
         for i in range(0, params[3]):
             for p in people:
                 if p.height * w[0] + p.weight * w[1] + w[2] < 0:
-                    p.pred = 0
+                    p.pred = Person.MALE
                 else:
-                    p.pred = 1
+                    p.pred = Person.FEMALE
                 w[0] += params[1] * p.height * (p.sex - p.pred)
                 w[1] += params[1] * p.weight * (p.sex - p.pred)
                 w[2] += params[1] * (p.sex - p.pred)
