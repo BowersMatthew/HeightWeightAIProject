@@ -40,9 +40,30 @@ class Train:
         return weights
 
     # params order should be [starting weights, alpha, gain, max iterations, desired error]
-    def soft(people, params):
-        weights = []
-
+    def soft(self, people, params):
+        w = params[0]
+        self.bestw = w
+        weights = [w]
+        for i in range(0, params[3]):
+            for p in people:
+                if p.height * w[0] + p.weight * w[1] + w[2] < 0:
+                    p.pred = 0
+                else:
+                    p.pred = 1
+                w[0] += params[1] * p.height * (p.sex - p.pred)
+                w[1] += params[1] * p.weight * (p.sex - p.pred)
+                w[2] += params[1] * (p.sex - p.pred)
+            print(str(w))
+            weights.append(w)
+            terr = Train.calcerror(people)
+            print(str(terr))
+            self.errors.append(terr)
+            self.iterations += 1
+            if terr < self.besterr:
+                self.besterr = terr
+                self.bestw = w
+            if terr < params[3]:
+                break
         return weights
 
     @staticmethod
