@@ -7,6 +7,10 @@ __pycache__/
 *.dat
 *.sln
 .vs/
+# spreedsheets and other whatnot
+*.xlsx
+*.ods
+*.ods#
 
 # C extensions
 *.so
