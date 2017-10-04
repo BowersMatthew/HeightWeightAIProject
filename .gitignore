@@ -12,7 +12,7 @@ __pycache__/
 *.ods
 *.ods#
 *.iml
-/.idea
+.idea/
 
 # C extensions
 *.so
