@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="70efc988-5156-4c86-889c-6980cde2267a" name="Default" comment="Merge branch 'master' of github.com:BowersMatthew/HeightWeightAIProject&#10;&#10;# Conflicts:&#10;#&#9;src/core/core.py">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/core/with graph.xlsx" afterPath="" />
+    <list default="true" id="70efc988-5156-4c86-889c-6980cde2267a" name="Default" comment="for pull">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -122,6 +121,12 @@
             </path>
             <path>
               <item name="BowersHeightWeight" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BowersHeightWeight" type="462c0819:PsiDirectoryNode" />
+              <item name="BowersHeightWeight" type="462c0819:PsiDirectoryNode" />
+              <item name="Data" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BowersHeightWeight" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
             <path>
@@ -222,16 +227,23 @@
       <option name="project" value="LOCAL" />
       <updated>1507130868134</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="for pull">
+      <created>1507130972891</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1507130972891</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15364583" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15364583" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289183" sideWeight="0.50208336" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3289183" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3289183" sideWeight="0.50416666" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3289183" sideWeight="0.49583334" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289183" sideWeight="0.49791667" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289183" sideWeight="0.49791667" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -255,7 +267,8 @@
     <MESSAGE value="moved training to its own module. Added function to the training module." />
     <MESSAGE value="Merge branch 'master' of github.com:BowersMatthew/HeightWeightAIProject&#10;&#10;# Conflicts:&#10;#&#9;src/core/core.py&#10;&#10;added errorgraph.py it does nothing" />
     <MESSAGE value="Merge branch 'master' of github.com:BowersMatthew/HeightWeightAIProject&#10;&#10;# Conflicts:&#10;#&#9;src/core/core.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'master' of github.com:BowersMatthew/HeightWeightAIProject&#10;&#10;# Conflicts:&#10;#&#9;src/core/core.py" />
+    <MESSAGE value="for pull" />
+    <option name="LAST_COMMIT_MESSAGE" value="for pull" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
