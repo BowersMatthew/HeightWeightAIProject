@@ -44,7 +44,6 @@ def coolgraph(people, weights):
 def determineline(weights):
     #solve for x and y intercept then use those to graph
     #print(weights)
-    print("Break")
     x = []
     y = []
     y.append(0)

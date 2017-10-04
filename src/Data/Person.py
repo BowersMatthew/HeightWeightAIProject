@@ -24,8 +24,10 @@ class Person(object):
     # PLoS ONE, 8(5), e63217. http://doi.org/10.1371/journal.pone.0063217
     # kg/m/m
     maleAveBMI = 29
+    #maleAveBMI = 50
     maleSdBMI = 4.73
     femaleAveBMI = 27.7
+    #femaleAveBMI = 20
     femaleSdBMI = 6.15
 
     def __init__(self, zh, zw, gender):
