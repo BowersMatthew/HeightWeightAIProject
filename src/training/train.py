@@ -1,8 +1,6 @@
-<<<<<<< HEAD
 from src.Data.Person import Person
-=======
 from math import exp
->>>>>>> 3aa33a8bafd405bfa7513f6be9ab93c169dd4609
+
 
 class Train:
 
@@ -54,7 +52,6 @@ class Train:
         weights = [w]
 
         for i in range(0, params[3]):
-<<<<<<< HEAD
             for p in people:
                 if p.height * w[0] + p.weight * w[1] + w[2] < 0:
                     p.pred = Person.MALE
@@ -63,7 +60,6 @@ class Train:
                 w[0] += params[1] * p.height * (p.sex - p.pred)
                 w[1] += params[1] * p.weight * (p.sex - p.pred)
                 w[2] += params[1] * (p.sex - p.pred)
-=======
             terr = 0
             for p in self.data:
                 x = p.height * w[0] + p.weight * w[1] + w[2]
@@ -75,7 +71,6 @@ class Train:
                 w[1] += params[1] * p.weight * (err)
                 w[2] += params[1] * (err)
                 terr += err ** 2
->>>>>>> 3aa33a8bafd405bfa7513f6be9ab93c169dd4609
             print(str(w))
             weights.append(w)
             print(str(terr))
