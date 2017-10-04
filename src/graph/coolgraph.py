@@ -37,7 +37,8 @@ def coolgraph(people, weights):
 
     plt.title('Graph of Data')
     z = determineline(weights)
-    ax.plot(z[0],z[1], 'r--')
+    ax.plot(z[0],z[1], 'b--')
+    plt.axis([0, 1, 0, 1])
     plt.legend(loc=2)
     plt.show()
 def determineline(weights):
