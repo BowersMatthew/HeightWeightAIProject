@@ -24,10 +24,10 @@ class Train:
         weights = [w]
         for i in range(0, params[2]):
             for p in self.data:
-                if p.height * w[0] + p.weight * w[1] + w[2] < 0:
-                    p.pred = Person.MALE
-                else:
+                if p.height * w[0] + p.weight * w[1] + w[2] >= 0:
                     p.pred = Person.FEMALE
+                else:
+                    p.pred = Person.MALE
                 w[0] += params[1] * p.height * (p.sex - p.pred)
                 w[1] += params[1] * p.weight * (p.sex - p.pred)
                 w[2] += params[1] * (p.sex - p.pred)
@@ -53,10 +53,10 @@ class Train:
 
         for i in range(0, params[3]):
             for p in people:
-                if p.height * w[0] + p.weight * w[1] + w[2] < 0:
-                    p.pred = Person.MALE
-                else:
+                if p.height * w[0] + p.weight * w[1] + w[2] >= 0:
                     p.pred = Person.FEMALE
+                else:
+                    p.pred = Person.MALE
                 w[0] += params[1] * p.height * (p.sex - p.pred)
                 w[1] += params[1] * p.weight * (p.sex - p.pred)
                 w[2] += params[1] * (p.sex - p.pred)
