@@ -5,14 +5,18 @@ from src.training.train import Train
 from multiprocessing import Process
 
 if __name__ == '__main__':
-    people = minmaxnorm(Person.makepeople(4000))
-    params = [[1, 1, 1], 0.01, 1000, 0.00001, 2000]
+    numpeople = 4000
+    # percent to use for training
+    cut = 50
+    people = minmaxnorm(Person.makepeople(numpeople))
+    # hard params order should be [starting weights, alpha, max iterations, desired error, cut, num people]
+    params = [[1, 1, 1], 0.05, 1000, 0.00001, cut, numpeople]
     hard = Train(people, params)
     p = Process(target=coolgraph, args=(hard.data, hard.bestw, 'hard'))
     p.start()
 
-    # params order should be [starting weights, alpha, gain, max iterations, desired error, cut]
-    params = [[1, 1, 1], 0.5, 0.01, 1000, 0.00001, 2000]
+    # soft params order should be [starting weights, alpha, gain, max iterations, desired error, cut, num people]
+    params = [[1, 1, 1], 1, 0.005, 1000, 0.00001, cut, numpeople]
     soft = Train(people, params)
     p1 = Process(target=coolgraph, args=(soft.data, soft.bestw, 'soft'))
     p1.start()
