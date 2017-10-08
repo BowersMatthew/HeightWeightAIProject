@@ -1,9 +1,10 @@
-For this project to work you will need the following packages
-multiprocessing
-numpy
-os
-math
-matplotlib.pyplot
+#Required Packages 
+*multiprocessing
+*numpy
+*os
+*math
+*matplotlib.pyplot
+*python3
 
-To run the project run
-core.py in the core folder 
+#How to run 
+*python core.py
