@@ -1,6 +1,7 @@
 from src.Data.Person import Person
 
 
+# normalizes using a z-score method
 def normalize(people):
     sumh = 0
     sumw = 0
@@ -27,7 +28,7 @@ def normalize(people):
 
     return people
 
-
+# normalizes using a min-max method
 def minmaxnorm(people):
     for p in people:
         p.height = (p.height - Person.minh) / (Person.maxh - Person.minh)

@@ -56,6 +56,7 @@ class Train:
                 break
         return weights
 
+    # produced the confusion matrix and calculates the accuracy for the best weights
     def calcconfusion(self):
         tfemale = 0
         tmale = 0
@@ -80,11 +81,13 @@ class Train:
         print("accuracy: ", "{0:.3f}%".format(float(tfemale + tmale)/float(tmale+tfemale+ffemale+fmale)*100))
         print("best weights: ", self.bestw, "terr: ", self.besterr, "\n")
 
+    # checks if the current error is the lowest error found so far
     def checkbest(self, terr, w):
         if terr < self.besterr:
             self.besterr = terr
             self.bestw = w
 
+    # calculates the total error for the soft activation function for the weights and people sent in
     @staticmethod
     def calcsofterror(w, people, k):
         terr = 0
@@ -92,10 +95,13 @@ class Train:
             terr += (Train.fbip(k, Train.cnet(w, p, 'soft')) - p.sex) ** 2
         return terr
 
+    # calculates the output of the unit given a gain and the net
     @staticmethod
     def fbip(k, x):
         return 1/(1 + exp(-1 * k * x))
 
+    # calculates the net value for both hard and soft usage
+    # the hard version is used for calculating the confusion matrices and the accuracy
     @staticmethod
     def cnet(w, p, type):
         if type == 'hard':
@@ -106,6 +112,8 @@ class Train:
         else:
             return p.height * w[0] + p.weight * w[1] + w[2]
 
+    # trains the weights given the current weights, pattern, and alpha assuming the pattern carries the
+    # actual output
     @staticmethod
     def trainw(w, p, a):
         err = p.sex - p.pred
@@ -118,6 +126,8 @@ class Train:
         #     print(w)
         return w
 
+    # splits the input data into a training set and a test set
+    # if 0 or 100 are passed as the percent to use all data is loaded to both sets
     def dividedata(self, people, cut, numpeople):
         if cut in (0, 100):
             self.data = people

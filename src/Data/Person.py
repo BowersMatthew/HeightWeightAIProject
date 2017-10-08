@@ -67,3 +67,7 @@ class Person(object):
             people.append(Person(numpy.random.normal(0, 1), numpy.random.normal(0, 1), s))
 
         return people
+
+    # override the built in __str__ to get the form we need to printing
+    def __str__(self):
+        return str(self.height) + "," + str(self.weight) + "," + str(self.sex) + "\n"
