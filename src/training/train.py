@@ -9,87 +9,97 @@ class Train:
         self.errors = []
         self.besterr = 100000
         self.bestw = []
-        if len(params) == 4:
+        self.data = []
+        self.test = []
+        if len(params) == 5:
             self.weights = Train.hard(self, people, params)
-        elif len(params) == 5:
+        elif len(params) == 6:
             self.weights = Train.soft(self, people, params)
         else:
             print("Invalid number of params")
 
-    # params order should be [starting weights, alpha, max iterations, desired error]
+    # params order should be [starting weights, alpha, max iterations, desired error, cut]
     def hard(self, people, params):
-        self.data = people
+        self.data = people[0:params[4]]
+        self.test = people[params[4]:4000]
         w = params[0]
         self.bestw = w
         weights = [w]
         for i in range(0, params[2]):
             for p in self.data:
-                if p.height * w[0] + p.weight * w[1] + w[2] >= 0:
-                    p.pred = Person.FEMALE
-                else:
-                    p.pred = Person.MALE
-                w[0] += params[1] * p.height * (p.sex - p.pred)
-                w[1] += params[1] * p.weight * (p.sex - p.pred)
-                w[2] += params[1] * (p.sex - p.pred)
-            print(str(w))
+                p.pred = Train.cnet(w, p, 'hard')
+                w = Train.trainw(w, p, params[1])
+            # print(str(w))
             weights.append(w)
-            terr = Train.calcerror(people)
+            terr = Train.calcharderror(w, self.test)
             print(str(terr))
             self.errors.append(terr)
             self.iterations += 1
-            if terr < self.besterr:
-                self.besterr = terr
-                self.bestw = w
+            self.checkbest(terr, w)
             if terr < params[3]:
                 break
         return weights
 
-    # params order should be [starting weights, alpha, gain, max iterations, desired error]
+    @staticmethod
+    def calcharderror(w, test):
+        terr = 0
+        for p in test:
+            terr += (Train.cnet(w, p, 'hard') - p.sex) ** 2
+        return terr
+
+    # params order should be [starting weights, alpha, gain, max iterations, desired error, cut]
     def soft(self, people, params):
-        self.data = people
+        self.data = people[0:params[5]]
+        self.test = people[params[5]:4000]
         w = params[0]
         self.bestw = w
         weights = [w]
 
         for i in range(0, params[3]):
-            for p in people:
-                if p.height * w[0] + p.weight * w[1] + w[2] >= 0:
-                    p.pred = Person.FEMALE
-                else:
-                    p.pred = Person.MALE
-                w[0] += params[1] * p.height * (p.sex - p.pred)
-                w[1] += params[1] * p.weight * (p.sex - p.pred)
-                w[2] += params[1] * (p.sex - p.pred)
-            terr = 0
             for p in self.data:
-                x = p.height * w[0] + p.weight * w[1] + w[2]
-                p.pred = Train.fbip(params[2], x)
-                #print(p.sex - p.pred)
-                err = p.sex - p.pred
-
-                w[0] += params[1] * p.height * (err)
-                w[1] += params[1] * p.weight * (err)
-                w[2] += params[1] * (err)
-                terr += err ** 2
-            print(str(w))
+                p.pred = Train.fbip(params[2], Train.cnet(w, p, 'soft'))
+                w = Train.trainw(w, p, params[1])
+            terr = Train.calcsofterror(w, self.test, params[2])
+            # print(str(w))
             weights.append(w)
-            print(str(terr))
+            print("terr: ", str(terr))
             self.errors.append([i, terr])
             self.iterations += 1
-            if terr < self.besterr:
-                self.besterr = terr
-                self.bestw = w
+            self.checkbest(terr, w)
             if terr < params[4]:
                 break
         return weights
 
+    def checkbest(self, terr, w):
+        if terr < self.besterr:
+            self.besterr = terr
+            self.bestw = w
+
     @staticmethod
-    def calcerror(people):
+    def calcsofterror(w, people, k):
         terr = 0
         for p in people:
-            terr += (p.pred - p.sex) ** 2
+            terr += (Train.fbip(k, Train.cnet(w, p, 'soft')) - p.sex) ** 2
         return terr
 
     @staticmethod
     def fbip(k, x):
         return 1/(1 + exp(-1 * k * x))
+
+    @staticmethod
+    def cnet(w, p, type):
+        if type == 'hard':
+            if p.height * w[0] + p.weight * w[1] + w[2] >= 0:
+                return Person.FEMALE
+            else:
+                return Person.MALE
+        else:
+            return p.height * w[0] + p.weight * w[1] + w[2]
+
+    @staticmethod
+    def trainw(w, p, a):
+        err = p.sex - p.pred
+        w[0] += a * p.height * err
+        w[1] += a * p.weight * err
+        w[2] += a * err
+        return w
