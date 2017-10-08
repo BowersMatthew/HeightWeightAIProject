@@ -5,6 +5,7 @@ from src.Data.normalize import minmaxnorm
 from src.training.train import Train
 from multiprocessing import Process
 from src.graph.errorgraph import errorgraph
+import numpy.random
 import os
 
 if __name__ == '__main__':
@@ -29,7 +30,7 @@ if __name__ == '__main__':
         # percent to use for training
         # cut = 50
         # hard params order should be [starting weights, alpha, max iterations, desired error, cut, num people]
-        params = [[1, 1, 1], 0.05, 1000, 0.00001, cut, numpeople]
+        params = [[numpy.random.normal(0, 1), numpy.random.normal(0, 1), numpy.random.normal(0, 1)], 0.05, 1000, 0.00001, cut, numpeople]
         hard = Train(people, params)
         errorgraph(hard)
         hardsets.append(hard)
@@ -42,7 +43,7 @@ if __name__ == '__main__':
         p.start()
 
         # soft params order should be [starting weights, alpha, gain, max iterations, desired error, cut, num people]
-        params = [[1, 1, 1], 0.1, 0.005, 1000, 0.00001, cut, numpeople]
+        params = [[numpy.random.normal(0, 1), numpy.random.normal(0, 1), numpy.random.normal(0, 1)], 0.1, 0.005, 1000, 0.00001, cut, numpeople]
         soft = Train(people, params)
         errorgraph(soft)
         softsets.append(soft)

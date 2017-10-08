@@ -47,6 +47,7 @@ def coolgraph(people, weights, train):
         #{:.2f}".format(f)
         terr = "{:.2f}".format(train.softerror)
     ax.text(.6, .05, 'Total Error = ' + str(terr), bbox={'facecolor': 'blue', 'alpha': 0.5, 'pad': 3})
+    ax.text(.6, .11, 'Neuron = ' + lineasstring(z), bbox={'facecolor': 'yellow', 'alpha': 0.5, 'pad': 3})
     plt.axis([0, 1, 0, 1])
     plt.legend(loc=2)
     plt.show()
@@ -65,7 +66,15 @@ def determineline(weights):
     z.append(x)
     z.append(y)
     return z
-
+def lineasstring(z):
+    #"{:.2f}".format(train.softerror)
+    x = z[0][0]
+    y = z[1][1]
+    output = "{:.2f}".format(x) + " x"
+    if z[1][1] > 0:
+        output += "+"
+    output += "{:.2f}".format(y) + " y = 0"
+    return output
 
 
 

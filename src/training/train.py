@@ -138,7 +138,7 @@ class Train:
 
     # adds the current total error to the array of errors and checks if it was the best so far
     def addterr(self, terr, w):
-        print("terr: ", str(terr))
+       # print("terr: ", str(terr))
         self.errors.append(terr)
         self.iterations += 1
         self.checkbest(terr, w)
