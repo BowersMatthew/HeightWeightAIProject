@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
-from src.Data.Person import Person
 
+#displays error graph
 def errorgraph(data):
     error = data.errors
     x = list(range(0, len(data.errors)))

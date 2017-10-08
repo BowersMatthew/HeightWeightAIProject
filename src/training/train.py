@@ -24,16 +24,16 @@ class Train:
     # params order should be [starting weights, alpha, max iterations, desired error, cut, num people]
     def hard(self, people, params):
         self.dividedata(people, params[4], params[5])
-        # self.data = people[0:params[4]]
-        # self.test = people[params[4]:4000]
+        #start best weights as original weights
         w = params[0]
         self.bestw = w
         weights = [w]
         for i in range(0, params[2]):
             for p in self.data:
+                #get predicted values
                 p.pred = Train.cnet(w, p, 'hard')
+                #begin training
                 w = Train.trainw(w, p, params[1])
-            # print(str(w))
             weights.append(w)
             if self.addterr(self.calcharderror(w, self.test), w) < params[3]:
                 break
