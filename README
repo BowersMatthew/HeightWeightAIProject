@@ -1,9 +1,0 @@
-For this project to work you will need the following packages
-multiprocessing
-numpy
-os
-math
-matplotlib.pyplot
-
-To run the project run
-core.py in the core folder 
