@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from src.Data.Person import Person
 
-def coolgraph(people, weights, type):
+def coolgraph(people, weights, train):
     '''
     Weights is a 2d list of 3 seperate weights
     Find out how to turn those into a line
@@ -35,9 +35,18 @@ def coolgraph(people, weights, type):
         x, y = data
         ax.scatter(x, y, alpha=0.8, c=color, edgecolors='none', s=10, label=group)
 
-    plt.title('Graph of ' + type)
+    plt.title('Graph of ' + train.kind)
     z = determineline(weights)
     ax.plot(z[0],z[1], 'b--')
+    ax.set_xlabel('Height')
+    ax.set_ylabel('Weight')
+    terr = ""
+    if train.kind == 'hard':
+        terr = str(train.harderror)
+    else:
+        #{:.2f}".format(f)
+        terr = "{:.2f}".format(train.softerror)
+    ax.text(.6, .05, 'Total Error = ' + str(terr), bbox={'facecolor': 'blue', 'alpha': 0.5, 'pad': 3})
     plt.axis([0, 1, 0, 1])
     plt.legend(loc=2)
     plt.show()

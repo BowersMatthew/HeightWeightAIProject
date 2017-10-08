@@ -35,7 +35,7 @@ class Train:
                 w = Train.trainw(w, p, params[1])
             # print(str(w))
             weights.append(w)
-            if self.addterr(Train.calcharderror(w, self.test), w) < params[3]:
+            if self.addterr(self.calcharderror(w, self.test), w) < params[3]:
                 break
         return weights
 
@@ -52,7 +52,7 @@ class Train:
                 w = Train.trainw(w, p, params[1])
             # print(str(w))
             weights.append(w)
-            if self.addterr(Train.calcsofterror(w, self.test, params[2]), w) < params[4]:
+            if self.addterr(self.calcsofterror(w, self.test, params[2]), w) < params[4]:
                 break
         return weights
 
@@ -88,11 +88,11 @@ class Train:
             self.bestw = w
 
     # calculates the total error for the soft activation function for the weights and people sent in
-    @staticmethod
-    def calcsofterror(w, people, k):
+    def calcsofterror(self, w, people, k):
         terr = 0
         for p in people:
             terr += (Train.fbip(k, Train.cnet(w, p, 'soft')) - p.sex) ** 2
+        self.softerror = terr
         return terr
 
     # calculates the output of the unit given a gain and the net
@@ -146,10 +146,10 @@ class Train:
 
     # calculate the total error for a hard activation function using the current weight set
     # and the training data
-    @staticmethod
-    def calcharderror(w, test):
+    def calcharderror(self, w, test):
         terr = 0
         for p in test:
             terr += (Train.cnet(w, p, 'hard') - p.sex) ** 2
+        self.harderror = terr
         return terr
 

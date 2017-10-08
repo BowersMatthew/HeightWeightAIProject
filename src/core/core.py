@@ -38,7 +38,7 @@ if __name__ == '__main__':
                             ('..\\..\\data\\hard' + str(cut) + str(100 - cut) + ".txt")), str(hard.bestw))
 
         # spin a thread to graph the result
-        p = Process(target=coolgraph, args=(hard.test, hard.bestw, 'hard'))
+        p = Process(target=coolgraph, args=(hard.test, hard.bestw, hard))
         p.start()
 
         # soft params order should be [starting weights, alpha, gain, max iterations, desired error, cut, num people]
@@ -51,7 +51,7 @@ if __name__ == '__main__':
                             ('..\\..\\data\\soft' + str(cut) + str(100 - cut) + ".txt")), str(soft.bestw))
 
         # spin a thread to graph the result
-        p1 = Process(target=coolgraph, args=(soft.test, soft.bestw, 'soft'))
+        p1 = Process(target=coolgraph, args=(soft.test, soft.bestw, soft))
         p1.start()
         p.join()
         p1.join()
