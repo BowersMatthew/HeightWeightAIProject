@@ -11,17 +11,18 @@ class Train:
         self.bestw = []
         self.data = []
         self.test = []
-        if len(params) == 5:
+        if len(params) == 6:
             self.weights = Train.hard(self, people, params)
-        elif len(params) == 6:
+        elif len(params) == 7:
             self.weights = Train.soft(self, people, params)
         else:
             print("Invalid number of params")
 
-    # params order should be [starting weights, alpha, max iterations, desired error, cut]
+    # params order should be [starting weights, alpha, max iterations, desired error, cut, num people]
     def hard(self, people, params):
-        self.data = people[0:params[4]]
-        self.test = people[params[4]:4000]
+        self.dividedata(people, params[4], params[5])
+        # self.data = people[0:params[4]]
+        # self.test = people[params[4]:4000]
         w = params[0]
         self.bestw = w
         weights = [w]
@@ -47,10 +48,9 @@ class Train:
             terr += (Train.cnet(w, p, 'hard') - p.sex) ** 2
         return terr
 
-    # params order should be [starting weights, alpha, gain, max iterations, desired error, cut]
+    # params order should be [starting weights, alpha, gain, max iterations, desired error, cut, num people]
     def soft(self, people, params):
-        self.data = people[0:params[5]]
-        self.test = people[params[5]:4000]
+        self.dividedata(people, params[5], params[6])
         w = params[0]
         self.bestw = w
         weights = [w]
@@ -103,3 +103,12 @@ class Train:
         w[1] += a * p.weight * err
         w[2] += a * err
         return w
+
+    def dividedata(self, people, cut, numpeople):
+        if cut in (0, 100):
+            self.data = people
+            self.test = people
+        else:
+            self.data = people[0:int(numpeople*cut/100)]
+            self.test = people[int(numpeople*cut/100): numpeople]
+
