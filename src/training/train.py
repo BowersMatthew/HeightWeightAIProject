@@ -13,10 +13,10 @@ class Train:
         self.data = []
         self.test = []
         if len(params) == 6:
-            self.kind = 'hard'
+            self.kind = 'Hard'
             self.weights = Train.hard(self, people, params)
         elif len(params) == 7:
-            self.kind = 'soft'
+            self.kind = 'Soft'
             self.weights = Train.soft(self, people, params)
         else:
             print("Invalid number of params")

@@ -35,13 +35,13 @@ def coolgraph(people, weights, train):
         x, y = data
         ax.scatter(x, y, alpha=0.8, c=color, edgecolors='none', s=10, label=group)
 
-    plt.title('Graph of ' + train.kind)
+    plt.title('Graph of ' + train.kind + " " + str(train.params[len(train.params) - 2]))
     z = determineline(weights)
     ax.plot(z[0],z[1], 'b--')
     ax.set_xlabel('Height')
     ax.set_ylabel('Weight')
     terr = ""
-    if train.kind == 'hard':
+    if train.kind == 'Hard':
         terr = str(train.harderror)
     else:
         #{:.2f}".format(f)
