@@ -24,7 +24,7 @@ def coolgraph(people, weights, train):
 
     male = (maleheight, maleweight)
     female = (femaleheight, femaleweight)
-    
+
     data = (male, female)
     colors = ("red", "green")
     groups = ("male", "female")
