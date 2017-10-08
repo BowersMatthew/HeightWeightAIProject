@@ -5,6 +5,7 @@ from math import exp
 class Train:
 
     def __init__(self, people, params):
+        self.params = params
         self.iterations = 0
         self.errors = []
         self.besterr = 100000
@@ -76,7 +77,8 @@ class Train:
         print("\t| PF | PM ")
         print("AF: |", tfemale, "|", fmale)
         print("AM: |", ffemale, "|", tmale)
-        print("accuracy: ", "{0:.3f}%".format(float(tfemale + tmale)/float(tmale+tfemale+ffemale+fmale)*100), "\n")
+        print("accuracy: ", "{0:.3f}%".format(float(tfemale + tmale)/float(tmale+tfemale+ffemale+fmale)*100))
+        print("best weights: ", self.bestw, "terr: ", self.besterr, "\n")
 
     def checkbest(self, terr, w):
         if terr < self.besterr:
@@ -110,6 +112,10 @@ class Train:
         w[0] += a * p.height * err
         w[1] += a * p.weight * err
         w[2] += a * err
+        # if abs(w[0]) > 10 or abs(w[1]) > 10 or abs(w[2]) > 10:
+        #     for i in range(0, len(w)):
+        #         w[i] = w[i]/10
+        #     print(w)
         return w
 
     def dividedata(self, people, cut, numpeople):
