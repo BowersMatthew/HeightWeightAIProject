@@ -50,7 +50,7 @@ def coolgraph(people, weights, train):
         terr = "{:.2f}".format(train.softerror)
     #Adding labels
     ax.text(.6, .05, 'Total Error = ' + str(terr), bbox={'facecolor': 'blue', 'alpha': 0.5, 'pad': 3})
-    ax.text(.6, .11, 'Neuron = ' + lineasstring(z), bbox={'facecolor': 'yellow', 'alpha': 0.5, 'pad': 3})
+    ax.text(.6, .11, 'Neuron ' + lineasstring(z), bbox={'facecolor': 'yellow', 'alpha': 0.5, 'pad': 3})
     plt.axis([0, 1, 0, 1])
     plt.legend(loc=2)
     plt.show()
