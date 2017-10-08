@@ -12,8 +12,10 @@ class Train:
         self.data = []
         self.test = []
         if len(params) == 6:
+            self.kind = 'hard'
             self.weights = Train.hard(self, people, params)
         elif len(params) == 7:
+            self.kind = 'soft'
             self.weights = Train.soft(self, people, params)
         else:
             print("Invalid number of params")
@@ -32,21 +34,9 @@ class Train:
                 w = Train.trainw(w, p, params[1])
             # print(str(w))
             weights.append(w)
-            terr = Train.calcharderror(w, self.test)
-            print(str(terr))
-            self.errors.append(terr)
-            self.iterations += 1
-            self.checkbest(terr, w)
-            if terr < params[3]:
+            if self.addterr(Train.calcharderror(w, self.test), w) < params[3]:
                 break
         return weights
-
-    @staticmethod
-    def calcharderror(w, test):
-        terr = 0
-        for p in test:
-            terr += (Train.cnet(w, p, 'hard') - p.sex) ** 2
-        return terr
 
     # params order should be [starting weights, alpha, gain, max iterations, desired error, cut, num people]
     def soft(self, people, params):
@@ -59,16 +49,34 @@ class Train:
             for p in self.data:
                 p.pred = Train.fbip(params[2], Train.cnet(w, p, 'soft'))
                 w = Train.trainw(w, p, params[1])
-            terr = Train.calcsofterror(w, self.test, params[2])
             # print(str(w))
             weights.append(w)
-            print("terr: ", str(terr))
-            self.errors.append([i, terr])
-            self.iterations += 1
-            self.checkbest(terr, w)
-            if terr < params[4]:
+            if self.addterr(Train.calcsofterror(w, self.test, params[2]), w) < params[4]:
                 break
         return weights
+
+    def calcconfusion(self):
+        tfemale = 0
+        tmale = 0
+        ffemale = 0
+        fmale = 0
+        for p in self.test:
+            if Train.cnet(self.bestw, p, 'hard') == Person.FEMALE:
+                if p.sex == Person.FEMALE:
+                    tfemale += 1
+                else:
+                    ffemale += 1
+            else:
+                if p.sex == Person.MALE:
+                    tmale += 1
+                else:
+                    fmale += 1
+
+        print("Confusion Matrix ", self.kind.capitalize(), " Transition")
+        print("\t| PF | PM ")
+        print("AF: |", tfemale, "|", fmale)
+        print("AM: |", ffemale, "|", tmale)
+        print("accuracy: ", "{0:.3f}%".format(float(tfemale + tmale)/float(tmale+tfemale+ffemale+fmale)*100), "\n")
 
     def checkbest(self, terr, w):
         if terr < self.besterr:
@@ -111,4 +119,21 @@ class Train:
         else:
             self.data = people[0:int(numpeople*cut/100)]
             self.test = people[int(numpeople*cut/100): numpeople]
+
+    # adds the current total error to the array of errors and checks if it was the best so far
+    def addterr(self, terr, w):
+        print("terr: ", str(terr))
+        self.errors.append(terr)
+        self.iterations += 1
+        self.checkbest(terr, w)
+        return terr
+
+    # calculate the total error for a hard activation function using the current weight set
+    # and the training data
+    @staticmethod
+    def calcharderror(w, test):
+        terr = 0
+        for p in test:
+            terr += (Train.cnet(w, p, 'hard') - p.sex) ** 2
+        return terr
 

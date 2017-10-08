@@ -12,13 +12,15 @@ if __name__ == '__main__':
     # hard params order should be [starting weights, alpha, max iterations, desired error, cut, num people]
     params = [[1, 1, 1], 0.05, 1000, 0.00001, cut, numpeople]
     hard = Train(people, params)
-    p = Process(target=coolgraph, args=(hard.data, hard.bestw, 'hard'))
+    p = Process(target=coolgraph, args=(hard.test, hard.bestw, 'hard'))
     p.start()
 
     # soft params order should be [starting weights, alpha, gain, max iterations, desired error, cut, num people]
-    params = [[1, 1, 1], 1, 0.005, 1000, 0.00001, cut, numpeople]
+    params = [[1, 1, 1], 2, 0.005, 1000, 0.00001, cut, numpeople]
     soft = Train(people, params)
-    p1 = Process(target=coolgraph, args=(soft.data, soft.bestw, 'soft'))
+    p1 = Process(target=coolgraph, args=(soft.test, soft.bestw, 'soft'))
     p1.start()
     p.join()
     p1.join()
+    hard.calcconfusion()
+    soft.calcconfusion()
