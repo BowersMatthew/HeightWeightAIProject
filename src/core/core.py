@@ -36,7 +36,7 @@ if __name__ == '__main__':
         hardsets.append(hard)
         # write this result to file
         tofile(os.path.join(os.path.realpath(''),
-                            ('..\\..\\data\\hard' + str(cut) + str(100 - cut) + ".txt")), str(hard.bestw))
+                            ('..\\..\\data\\hard' + str(cut) + str(100 - cut) + ".txt")), str(hard.bestw)[1:-1])
 
         # spin a thread to graph the result
         p = Process(target=coolgraph, args=(hard.test, hard.bestw, hard))
@@ -49,7 +49,7 @@ if __name__ == '__main__':
         softsets.append(soft)
         # write this result to file
         tofile(os.path.join(os.path.realpath(''),
-                            ('..\\..\\data\\soft' + str(cut) + str(100 - cut) + ".txt")), str(soft.bestw))
+                            ('..\\..\\data\\soft' + str(cut) + str(100 - cut) + ".txt")), str(soft.bestw)[1:-1])
 
         # spin a thread to graph the result
         p1 = Process(target=coolgraph, args=(soft.test, soft.bestw, soft))
