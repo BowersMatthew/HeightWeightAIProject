@@ -40,7 +40,7 @@ def coolgraph(people, weights, train):
     plt.title('Graph of ' + train.kind + " " + str(train.params[len(train.params) - 2]))
     #creating the best line
     z = determineline(weights)
-    ax.plot(z[0],z[1], 'b--')
+    ax.plot(z[0], z[1], 'b--')
     ax.set_xlabel('Height')
     ax.set_ylabel('Weight')
     terr = ""
