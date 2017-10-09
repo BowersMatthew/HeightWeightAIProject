@@ -13,7 +13,10 @@ if __name__ == '__main__':
     numpeople = 4000
     hardsets = []
     softsets = []
-
+    print("checking for data folder")
+    if not os.path.exists('..\\..\\data'):
+        print("creating data folder")
+        os.makedirs('..\\..\\data')
     # generate the people
     people = Person.makepeople(numpeople)
 
