@@ -31,32 +31,45 @@ if __name__ == '__main__':
         # cut = 50
         # hard params order should be [starting weights, alpha, max iterations, desired error, cut, num people]
         params = [[numpy.random.normal(0, 1), numpy.random.normal(0, 1), numpy.random.normal(0, 1)], 0.05, 1000, 0.00001, cut, numpeople]
+        print("Training hard")
         hard = Train(people, params)
-        errorgraph(hard)
         hardsets.append(hard)
         # write this result to file
+        print("Writing Results")
         tofile(os.path.join(os.path.realpath(''),
                             ('..\\..\\data\\hard' + str(cut) + str(100 - cut) + ".txt")), str(hard.bestw)[1:-1])
 
         # spin a thread to graph the result
+        print("Creating graph")
         p = Process(target=coolgraph, args=(hard.test, hard.bestw, hard))
-        p.start()
+        e = Process(target=errorgraph, args=(hard,))
+
 
         # soft params order should be [starting weights, alpha, gain, max iterations, desired error, cut, num people]
         params = [[numpy.random.normal(0, 1), numpy.random.normal(0, 1), numpy.random.normal(0, 1)], 0.1, 0.005, 1000, 0.00001, cut, numpeople]
+        print("Training soft")
         soft = Train(people, params)
-        errorgraph(soft)
         softsets.append(soft)
         # write this result to file
+        print("Writing results")
         tofile(os.path.join(os.path.realpath(''),
                             ('..\\..\\data\\soft' + str(cut) + str(100 - cut) + ".txt")), str(soft.bestw)[1:-1])
 
         # spin a thread to graph the result
+        print("Creating graph")
         p1 = Process(target=coolgraph, args=(soft.test, soft.bestw, soft))
+        e1 = Process(target=errorgraph, args=(soft,))
+        print("Displaying graph")
+        p.start()
+        e.start()
         p1.start()
+        e1.start()
         p.join()
         p1.join()
+        e.join()
+        e1.join()
 
+    print("Generating confusion matrices")
     for h in hardsets:
         h.calcconfusion()
     for s in softsets:
