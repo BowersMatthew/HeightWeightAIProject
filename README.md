@@ -7,7 +7,8 @@
 * python3
 
 # How to run 
-* python core.py
+* pip install . (in directory with setup.py)
+* python core.py (in core directory)
 
 # Things to note
 * To continue execution close the open graphs. 
